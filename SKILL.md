@@ -1,5 +1,5 @@
 ---
-name: shippo
+name: shippo-official
 description: >
   Ship packages with Shippo. Multi-carrier rate shopping, label generation,
   package tracking, address validation, customs declarations, and batch
