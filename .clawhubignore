@@ -2,3 +2,6 @@ README.md
 LICENSE
 .gitignore
 .git/
+.env
+.env.local
+.env*.local
