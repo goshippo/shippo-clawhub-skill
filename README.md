@@ -10,22 +10,49 @@ npx clawhub@latest install shippo
 
 ## MCP Server Setup
 
-This skill requires a connection to the Shippo MCP server. Follow both steps below.
+This skill uses the standalone [`@shippo/shippo-mcp`](https://www.npmjs.com/package/@shippo/shippo-mcp) server (npm, stdio transport). **Requires Node.js 18+.**
 
-### 1. Set your API key
+### 1. Get your API key
 
-```bash
-export SHIPPO_API_KEY="ShippoToken shippo_test_xxxxx"
-```
-
-Replace `shippo_test_xxxxx` with your actual Shippo API key. You can get one at [apps.goshippo.com/register](https://apps.goshippo.com/register).
+Sign up at [apps.goshippo.com/register](https://apps.goshippo.com/register) and grab a test or live API key.
 
 ### 2. Configure the MCP server
 
-Add the following to your MCP configuration:
+Add the following to your MCP client configuration (e.g. Cursor `~/.cursor/mcp.json`, Claude Desktop `claude_desktop_config.json`, or Claude Code `~/.claude.json`):
 
-- **URL:** `https://app.getgram.ai/mcp/shippo-mcp-beta`
-- **Header:** `Mcp-Shippo-Merged-Api-Key-Header` with the value of your API key (e.g., `ShippoToken shippo_test_xxxxx`)
+```json
+{
+  "mcpServers": {
+    "shippo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@shippo/shippo-mcp",
+        "start",
+        "--api-key-header",
+        "ShippoToken YOUR_SHIPPO_API_KEY",
+        "--shippo-api-version",
+        "2018-02-08"
+      ]
+    }
+  }
+}
+```
+
+Replace `YOUR_SHIPPO_API_KEY` with your actual key (keep the `ShippoToken ` prefix).
+
+### Manual launch (for debugging)
+
+```bash
+npx -y @shippo/shippo-mcp start --api-key-header "ShippoToken YOUR_SHIPPO_API_KEY" --shippo-api-version 2018-02-08
+```
+
+This starts the server in stdio mode — it won't show an interactive prompt, it's waiting for MCP protocol messages on stdin.
+
+### Troubleshooting
+
+- **`ReferenceError: Response is not defined`** — Node <18 or stale npx cache. Fix by updating Node (`nvm use 20`) and clearing npx cache (`npm cache clean --force && rm -rf ~/.npm/_npx/`), then restart your MCP client.
+- **Auth errors at first tool call** — make sure `--api-key-header` includes the literal `ShippoToken ` prefix before your key (e.g. `"ShippoToken shippo_test_abc123"`, not just `"shippo_test_abc123"`).
 
 ## What You Can Do
 
