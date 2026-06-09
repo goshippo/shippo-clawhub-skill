@@ -1,3 +1,8 @@
+> [!WARNING]
+> **Deprecated. No longer maintained.**
+>
+> Shippo's AI integrations (ClawHub skill, Claude Code plugin, and more) are now consolidated in one repository, `goshippo/ai`. The ClawHub skill is published from there as [`shippo/goshippo`](https://clawhub.ai/shippo/goshippo) (install with `openclaw skills install goshippo`). The setup described below points at a retired endpoint; for the current hosted Shippo MCP (per-user OAuth, no API key to copy), see the [Shippo MCP documentation](https://docs.goshippo.com/docs/Guides_general/MCPServer).
+
 # Shippo Skill for ClawHub
 
 Ship packages with Shippo via AI agents. This ClawHub skill gives Claude the knowledge and workflows to validate addresses, compare carrier rates, purchase shipping labels, track packages, and more -- all through natural language.
